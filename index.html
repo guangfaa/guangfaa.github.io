@@ -153,6 +153,79 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2024/11/06/%E5%90%8ECentOS7%E6%97%B6%E4%BB%A3%E5%A6%82%E4%BD%95%E7%94%A8%E4%B8%8Agcc9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Guangfaa">
+      <meta itemprop="description" content="广发技术有限公司">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Guangfa Tech">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/11/06/%E5%90%8ECentOS7%E6%97%B6%E4%BB%A3%E5%A6%82%E4%BD%95%E7%94%A8%E4%B8%8Agcc9/" class="post-title-link" itemprop="url">后CentOS7时代如何用上gcc9</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-11-06 00:35:46 / 修改时间：00:50:21" itemprop="dateCreated datePublished" datetime="2024-11-06T00:35:46+08:00">2024-11-06</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>CentOS7在2024年6月30日停止更新，其repo源也随之down掉了，导致我在用去年12月的方法升级gcc的时候报错：Could not resolve host: mirrorlist.centos.org； Name or service not known</p>
+<p>运行命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install centos-release-scl -y </span><br><span class="line">yum install devtoolset-9 devtoolset-9-runtime -y</span><br></pre></td></tr></table></figure>
+
+<p>第一反应尝试给yum换源，找了网上几个换阿里源的方法，第一行没问题了，第二行报错找不到devtoolset-9。</p>
+<p>为此又学了yum repo的结构，存储在&#x2F;etc&#x2F;yum.repos.d&#x2F;下面所有的.repo里边写的都是源，enabled&#x3D;1就是开着。搜了半天又发现这个devtoolset-9一般在CentOS-SCLo-scl.repo，CentOS-SCLo-scl-rh.repo这两个源里边找（这两个源就是通过第一句yum install centos-release-scl自动配置的）。</p>
+<p>手动换一下清华源吧，把这两个文件里enabled的baseurl都打开，mirrorlist都关上，然后换成清华源的对应目录，原理如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sed -e &quot;s|^mirrorlist=|#mirrorlist=|g&quot; \</span><br><span class="line">    -e &quot;s|^#baseurl=http://mirror.centos.org/centos/\$releasever|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos-vault/版本|g&quot; \</span><br><span class="line">    -e &quot;s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos-vault/版本|g&quot; \</span><br><span class="line">    -i.bak \</span><br><span class="line">    /etc/yum.repos.d/CentOS-*.repo</span><br></pre></td></tr></table></figure>
+
+<p>其实就是把原来的centos.org换成tuna.tsinghua.edu.cn。</p>
+<p>换了还不行，一看目录里根本没有devtoolset 9,只有45678，以为清华源东西不全。没想到又踩了坑，原来我用的CentOS 7.6.1810，源里就没有9，得超前几个版本才有。</p>
+<p>换7.8.2003的源，问题解决。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">CentOS-SCLo-sclo.repo</span></span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"></span></span><br><span class="line"><span class="language-bash"><span class="comment"># Please see http://wiki.centos.org/SpecialInterestGroup/SCLo for more</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">information</span></span><br><span class="line"></span><br><span class="line">[centos-sclo-sclo]</span><br><span class="line">name=CentOS-7 - SCLo sclo</span><br><span class="line">baseurl=http://mirrors.tuna.tsinghua.edu.cn/centos-vault/7.8.2003/sclo/$basearch/sclo/</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">mirrorlist=http://mirrorlist.centos.org?<span class="built_in">arch</span>=<span class="variable">$basearch</span>&amp;release=7&amp;repo=sclo-sclo</span></span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo</span><br><span class="line"></span><br><span class="line">[centos-sclo-sclo-testing]</span><br><span class="line">name=CentOS-7 - SCLo sclo Testing</span><br><span class="line">baseurl=http://buildlogs.centos.org/centos/7/sclo/$basearch/sclo/</span><br><span class="line">gpgcheck=0</span><br><span class="line">enabled=0</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo</span><br><span class="line"></span><br><span class="line">[centos-sclo-sclo-source]</span><br><span class="line">name=CentOS-7 - SCLo sclo Sources</span><br><span class="line">baseurl=http://vault.centos.org/centos/7/sclo/Source/sclo/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=0</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo</span><br><span class="line"></span><br><span class="line">[centos-sclo-sclo-debuginfo]</span><br><span class="line">name=CentOS-7 - SCLo sclo Debuginfo</span><br><span class="line">baseurl=http://mirrors.aliyun.com/centos-debuginfo/centos/7/sclo/$basearch/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-SCLo</span><br></pre></td></tr></table></figure>
+
+<p>PS: 下次要go build obfs4的时候别忘了，go build不起来也有可能是gcc的问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2024/03/08/%E6%B5%8B%E8%AF%95%E6%96%87%E7%AB%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -347,9 +420,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
