@@ -153,6 +153,131 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2025/06/09/%E7%88%B1%E6%80%9D%E5%94%AF%E5%B0%94%E6%A8%A1%E6%9D%BF%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91%E5%90%8E%E5%9B%BE%E7%89%87%E5%85%A8%E9%83%A8%E5%9C%A8%E6%AD%A3%E6%96%87%E4%B9%8B%E5%90%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Guangfaa">
+      <meta itemprop="description" content="广发技术有限公司">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Guangfa Tech">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/06/09/%E7%88%B1%E6%80%9D%E5%94%AF%E5%B0%94%E6%A8%A1%E6%9D%BF%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91%E5%90%8E%E5%9B%BE%E7%89%87%E5%85%A8%E9%83%A8%E5%9C%A8%E6%AD%A3%E6%96%87%E4%B9%8B%E5%90%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" class="post-title-link" itemprop="url">爱思唯尔模板踩坑记录</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-06-09 11:40:36 / 修改时间：11:53:28" itemprop="dateCreated datePublished" datetime="2025-06-09T11:40:36+08:00">2025-06-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最初写论文用的是IEEE的模板，被拒了之后转投了爱思唯尔的期刊，需要换成爱思唯尔的单栏模板(cas-sc)。改好格式之后，又踩了一些坑，没办法跑去借了师兄的电脑，同样的tex代码在师兄的环境里做编译就没有问题。</p>
+<h2 id="1-图片全部在正文之后解决方案"><a href="#1-图片全部在正文之后解决方案" class="headerlink" title="1. 图片全部在正文之后解决方案"></a>1. 图片全部在正文之后解决方案</h2><p><strong>把所有<code>\begin&#123;figure&#125;[]</code>的强制浮动取消即可。</strong></p>
+<p>例如<code>\begin&#123;figure&#125;[!t]</code>，改成<code>\begin&#123;figure&#125;</code>就解决了。</p>
+<p>这样编译之后发现图片默认就会浮动在页面最上方，估计是强制浮动和爱思唯尔模板默认的浮动起冲突了。</p>
+<h2 id="2-报错找不到cas-email-jpeg解决方案"><a href="#2-报错找不到cas-email-jpeg解决方案" class="headerlink" title="2. 报错找不到cas-email.jpeg解决方案"></a>2. 报错找不到cas-email.jpeg解决方案</h2><p><strong>用pdflatex编译即可。</strong></p>
+<p>编译引擎的问题，之前用xelatex报类似的错，换成pdflatex -&gt; bibtex -&gt; pdflatex -&gt; pdflatex的recipe就解决了。</p>
+<p>之前没有换引擎，随便找了一张图片，重命名为cas-email.jpeg，放在根目录下，也能临时解决。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2025/06/09/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E3%80%8ATracing-Transactions-Across-Cryptocurrency-Ledgers%E3%80%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Guangfaa">
+      <meta itemprop="description" content="广发技术有限公司">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Guangfa Tech">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/06/09/%E8%AE%BA%E6%96%87%E7%AC%94%E8%AE%B0%E3%80%8ATracing-Transactions-Across-Cryptocurrency-Ledgers%E3%80%8B/" class="post-title-link" itemprop="url">论文笔记《Tracing Transactions Across Cryptocurrency Ledgers》</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-06-09 11:31:12 / 修改时间：11:39:19" itemprop="dateCreated datePublished" datetime="2025-06-09T11:31:12+08:00">2025-06-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <div class="pdfobject-container" data-target="/Tracing" data-height="Transactions"></div>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2024/11/06/%E5%90%8ECentOS7%E6%97%B6%E4%BB%A3%E5%A6%82%E4%BD%95%E7%94%A8%E4%B8%8Agcc9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -420,7 +545,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -452,7 +577,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
