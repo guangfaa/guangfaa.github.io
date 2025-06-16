@@ -153,6 +153,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2025/06/16/Pyinstaller%E6%89%93%E5%8C%85%E5%85%BC%E5%AE%B9xp%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%88%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Guangfaa">
+      <meta itemprop="description" content="广发技术有限公司">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Guangfa Tech">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/06/16/Pyinstaller%E6%89%93%E5%8C%85%E5%85%BC%E5%AE%B9xp%E7%B3%BB%E7%BB%9F%E7%A8%8B%E5%BA%8F%E5%AE%9E%E6%88%98/" class="post-title-link" itemprop="url">Pyinstaller打包兼容xp系统程序实战</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-06-16 17:20:30 / 修改时间：17:32:27" itemprop="dateCreated datePublished" datetime="2025-06-16T17:20:30+08:00">2025-06-16</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>参考博文：<a target="_blank" rel="noopener" href="https://www.cnblogs.com/a-new-soul/p/13417679.html">python打包适配xp老版本电脑最佳方案 - a_new_soul(黑格子) - 博客园</a></p>
+<p>先下载[python 3.4.4](<a target="_blank" rel="noopener" href="https://www.python.org/downloads/release/python-344/">Python Release Python 3.4.4 | Python.org</a>)，单独创建一个目录，不写入PATH，避免与原有python环境冲突。</p>
+<p>注意要下载32位版本，即<a target="_blank" rel="noopener" href="https://www.python.org/ftp/python/3.4.4/python-3.4.4.msi">Windows x86 MSI installer</a></p>
+<p>假设安装在D:\Python34</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> Python34 <span class="comment"># 切换到安装目录</span></span><br><span class="line"></span><br><span class="line">python.exe <span class="literal">-m</span> pip install <span class="literal">--upgrade</span> pip==<span class="number">19.1</span>.<span class="number">1</span> <span class="comment"># 升级pip</span></span><br><span class="line"></span><br><span class="line">python.exe <span class="literal">-m</span> pip install pefile==<span class="number">2019.4</span>.<span class="number">18</span> <span class="comment"># 这里需要提前安装版本匹配的pefile库</span></span><br><span class="line"></span><br><span class="line">python.exe <span class="literal">-m</span> pip install pyinstaller==<span class="number">3.5</span> <span class="comment"># 安装3.5版本的pyinstaller</span></span><br></pre></td></tr></table></figure>
+
+<p>用新安装的pyinstaller 3.5打包即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd D:\\Python34\\Scripts</span><br><span class="line"></span><br><span class="line">pyinstaller.exe -F &lt;py文件路径&gt;</span><br></pre></td></tr></table></figure>
+
+<p>打包好的exe会生成在D:\Python34\Scripts\dist里。</p>
+<p>经测试，可以在xp系统上正常运行。</p>
+<p><img src="C:\Users\noctu\AppData\Roaming\Typora\typora-user-images\image-20250616173216204.png" alt="image-20250616173216204"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://guangfaa.github.io/2025/06/09/%E7%88%B1%E6%80%9D%E5%94%AF%E5%B0%94%E6%A8%A1%E6%9D%BF%E6%9C%AC%E5%9C%B0%E7%BC%96%E8%AF%91%E5%90%8E%E5%9B%BE%E7%89%87%E5%85%A8%E9%83%A8%E5%9C%A8%E6%AD%A3%E6%96%87%E4%B9%8B%E5%90%8E%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -544,7 +614,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
